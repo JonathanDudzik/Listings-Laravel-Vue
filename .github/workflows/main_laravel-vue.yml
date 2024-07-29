@@ -91,21 +91,20 @@ jobs:
 
       - name: Post-Deployment Commands
         run: |
-          echo Startup commands...
-          echo working dir: $(pwd)
-          echo wwwroot dir: $(ls /home/site/wwwroot)
+          echo Startup commands are currently defined and run in this Azure Web Apps configuration
+          # These are startup commands that are running in Azure's configuration
+          # Running these commands in the workflow does not work because /home/site/wwwroot/ does not exist yet
           
           # Clear Laravel cache
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-
+          # php artisan config:cache
+          # php artisan route:cache
+          # php artisan view:cache
+          
           # Create local sqlite database file (For production use a persistent database) 
-          # Comment out for troubleshooting
-          # touch /home/site/wwwroot/database/database.sqlite
+          # touch /home/site/wwwroot/database/database.sqlite 
 
           # Migrate and seed the database
-          cd /home/site/wwwroot && php artisan migrate && php artisan db:seed
+          # cd /home/site/wwwroot && php artisan migrate && php artisan db:seed
           
-          # Change site root
-          cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload
+          # Change site root 
+          # cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload
