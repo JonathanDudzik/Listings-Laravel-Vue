@@ -89,3 +89,20 @@ jobs:
           slot-name: 'Production'
           package: .
 
+      - name: Post-Deployment Commands
+        run: |
+          echo Startup commands...
+          
+          # Clear Laravel cache
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+          # Create local sqlite database file (For production use a persistent database) 
+          touch /home/site/wwwroot/database/database.sqlite 
+
+          # Migrate and seed the database
+          cd /home/site/wwwroot && php artisan migrate && php artisan db:seed
+          
+          # Change site root
+          cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload
