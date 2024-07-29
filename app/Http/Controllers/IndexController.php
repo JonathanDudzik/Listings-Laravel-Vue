@@ -34,12 +34,7 @@ class IndexController extends Controller
         //     Hash::check('password', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
         // );
 
-        return inertia(
-            'Index/Index',
-            [
-                'message' => 'Hello from Laravel!'
-            ]
-        );
+        return inertia('Index/Index');
     }
 
     public function show()
